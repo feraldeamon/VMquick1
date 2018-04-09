@@ -9,6 +9,8 @@ namespace VMquick1
     {
         private string[] code;
         private List<Token> tokens = new List<Token>();
+        private int iter = 0;
+        private IEnumerable<Token> codeInerator;
 
         public void ReadFile(String FileName)
         {
@@ -17,19 +19,30 @@ namespace VMquick1
             foreach (string line in code)
             {
                 wordCount = 1;
-                string[] txt = line.Split(" ");
+                char[] delimiterChar = {' ', ','};
+                string[] txt = line.Split(delimiterChar);
                 foreach (string text in txt)
                 {
-                    Console.WriteLine("Token: \"{0}\", Line Number: {1}, Word Count: {2}, Item Number: {3}", text, lnNumber, wordCount, itNumber);
-                    Token temp = new Token(text, lnNumber, itNumber++, wordCount++);
+                    String tp = text;
+                    if (string.IsNullOrEmpty(text))
+                        tp = ",";
+                    Console.WriteLine("Token: \"{0}\", Line Number: {1}, Word Count: {2}, Item Number: {3}", tp, lnNumber, wordCount, itNumber);
+                    Token temp = new Token(tp, lnNumber, itNumber++, wordCount++);
                     tokens.Add(temp);
-                    
                 }
 
                 Console.WriteLine(line);
                 lnNumber++;
             }
 
+        }
+
+        public IEnumerable<Token> getNextToken()
+        {
+            foreach (Token tk in tokens)
+            {
+                yield return tk;
+            }
         }
     }
 }
