@@ -26,8 +26,9 @@ namespace VMquick1
                     String tp = text;
                     if (string.IsNullOrEmpty(text))
                         tp = ",";
-                    Console.WriteLine("Token: \"{0}\", Line Number: {1}, Word Count: {2}, Item Number: {3}", tp, lnNumber, wordCount, itNumber);
                     Token temp = new Token(tp, lnNumber, itNumber++, wordCount++);
+                    Console.WriteLine("Token: \"{0}\", Line Number: {1}, Word Count: {2}, Item Number: {3}", tp, temp.lineNumber, temp.wordCount, temp.itemNumber);
+                    
                     tokens.Add(temp);
                 }
 
